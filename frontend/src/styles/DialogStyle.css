@@ -1,0 +1,24 @@
+.custom-dialog {
+    border-radius: 20px;
+    display: flex;
+    background-color: #bbdefb; 
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-width: 30vw;
+    min-height: 30vh;
+    
+  }
+  
+  .custom-dialog-title {
+    border-top-left-radius: 12px; 
+    border-top-right-radius: 12px; 
+  }
+  
+  .custom-dialog-content {
+    padding: 20px; 
+  }
+  
+  .custom-dialog-actions {
+    padding: 10px 20px;
+  }
+  

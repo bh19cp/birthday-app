@@ -1,0 +1,36 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -Xms128m -Xmx256m"
+      - "SPRING_DATASOURCE_URL=mongodb:27017/birthdayDB"
+      - "SERVER_PORT=8080"
+      - "SPRING_APPLICATION_NAME=birthdayCRUD-microservice"
+      - "SPRING_DATA_MONGODB_PORT=27017"
+      - "SPRING_DATA_MONGODB_DATABASE=birthdayDB"
+      - "SPRING_DATA_MONGODB_HOST=mongodb"
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+  birthdaycrud-microservice:
+    build:
+      context: ./backend/birthdayCRUD-microservice
+    container_name: birthdaycrud-microservice
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:password@mongodb:27017
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"  
+    depends_on:
+      - birthdaycrud-microservice
